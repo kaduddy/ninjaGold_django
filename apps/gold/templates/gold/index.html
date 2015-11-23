@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Ninja Gold</title>
+	{% load staticfiles %}
+	<link rel="stylesheet" href="{% static 'gold/style.css' %}">
+</head>
+	<body>
+		<p>Your Gold {{request.session.gold}}</p>
+		<div id="farm">
+			<form action="{% url 'process_money' %}" method="post">
+			{% csrf_token %}
+				<h1>Farm</h1>
+				<h2>(Earns 10-20 gold coins)</h2>
+				<input type="hidden" name="action" value="farm">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div id="cave">
+			<form action="{% url 'process_money' %}" method="post">
+			{% csrf_token %}
+				<h1>Cave</h1>
+				<h2>(Earns 5-10 gold coins)</h2>
+				<input type="hidden" name="action" value="cave">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div id="house">
+			<form action="{% url 'process_money' %}" method="post">
+			{% csrf_token %}
+				<h1>House</h1>
+				<h2>(Earns 2-5 gold coins)</h2>
+				<input type="hidden" name="action" value="house">
+				<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div id="casino">
+			<form action="{% url 'process_money' %}" method="post">
+				{% csrf_token %}
+					<h1>Casino</h1>
+					<h2>(Earns/takes 0-50 gold coins)</h2>
+					<input type="hidden" name="action" value="casino">
+					<input type="submit" value="Find Gold!">
+			</form>
+		</div>
+		<div id="special_p">
+			{% for message in request.session.activities %}
+				<p>{{message}}</p>
+			{% endfor %}
+		</div>
+	</body>
+</html>
